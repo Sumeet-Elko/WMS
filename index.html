@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SUS ERP</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- LOGIN -->
+  <main id="login" class="login-wrap">
+    <form id="loginForm" class="login-card">
+      <h1>SUS ERP</h1>
+      <p class="muted">Sign in with your account</p>
+      <div id="setupWarn" class="warn" hidden>
+        Setup not finished: open <b>js/config.js</b> and paste your Supabase URL and anon key.
+      </div>
+      <p id="loginMsg" class="err" hidden></p>
+      <div class="field"><label for="userid">User ID</label><input id="userid" type="text" required autocomplete="username" autocapitalize="none" spellcheck="false"></div>
+      <div class="field"><label for="password">Password</label><input id="password" type="password" required autocomplete="current-password"></div>
+      <button class="btn wide">Sign in</button>
+    </form>
+  </main>
+
+  <!-- APP -->
+  <div id="app" class="shell" hidden>
+    <aside id="side" class="side">
+      <div class="brand">SUS ERP</div>
+      <nav id="nav"></nav>
+    </aside>
+    <div class="main">
+      <header class="top">
+        <button id="menu" class="btn ghost menu" aria-label="Menu">☰</button>
+        <select id="scope" class="scope" title="Inspect one location" hidden></select>
+        <span class="spacer"></span>
+        <span id="who" class="muted"></span>
+        <button id="logout" class="btn ghost">Log out</button>
+      </header>
+      <section id="view" class="view"></section>
+    </div>
+  </div>
+
+  <div id="printArea"></div>
+  <div id="toasts"></div>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
