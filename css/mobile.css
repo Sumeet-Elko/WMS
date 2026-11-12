@@ -63,3 +63,8 @@
   .stepper { flex-wrap: wrap; gap: 6px 10px; }
   .toolbar .btn { flex: 1 1 auto; }
 }
+@media (max-width: 720px) {
+  .select-pop { z-index: 2000; border-radius: 14px; box-shadow: 0 10px 40px rgba(0, 0, 0, .35); }
+  .select-pop .search input { height: 46px; font-size: 16px; }
+  .select-pop .opt { padding: 12px 14px; }
+}
