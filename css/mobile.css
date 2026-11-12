@@ -1,0 +1,65 @@
+/* ===========================================================
+   WMS - phone & tablet refinements (loaded last)
+   =========================================================== */
+.bottom-nav { display: none; }
+@media (max-width: 1024px) {
+  .bottom-nav { display: grid; grid-template-columns: repeat(5, 1fr); position: fixed; left: 0; right: 0; bottom: 0; z-index: 50; background: var(--surface); border-top: 1px solid var(--border);
+    padding: 4px 4px calc(4px + env(safe-area-inset-bottom)); box-shadow: 0 -4px 18px rgba(0, 0, 0, .08); }
+  .bottom-nav a, .bottom-nav button { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 6px 2px; min-height: 52px; border: 0; background: none; color: var(--muted);
+    font: inherit; font-size: 10.5px; font-weight: 600; text-decoration: none; border-radius: 10px; position: relative; cursor: pointer; }
+  .bottom-nav svg { width: 22px; height: 22px; }
+  .bottom-nav .active { color: var(--primary); background: var(--primary-bg, rgba(31, 99, 184, .1)); }
+  .bottom-nav .bn { position: absolute; top: 2px; left: 50%; margin-left: 8px; min-width: 17px; height: 17px; padding: 0 4px; border-radius: 9px; background: var(--danger, #d92d20); color: #fff; font-size: 10px; display: grid; place-items: center; }
+  .page { padding-bottom: calc(92px + env(safe-area-inset-bottom)) !important; }
+  #toasts { bottom: calc(76px + env(safe-area-inset-bottom)) !important; }
+}
+@media (max-width: 720px) {
+  /* touch-friendly controls; 16px stops iOS from zooming into fields */
+  .input, input.input, select.input, textarea.input, .select .sel-btn, .select-btn { min-height: 46px; font-size: 16px; }
+  .btn { min-height: 44px; padding-left: 16px; padding-right: 16px; }
+  .btn.sm { min-height: 40px; }
+  .btn.icon { min-width: 44px; padding: 0; }
+  .check { min-height: 40px; }
+  .check input { width: 22px; height: 22px; }
+  /* page header & actions */
+  .page-head { flex-direction: column; align-items: stretch; gap: 10px; }
+  .page-head .actions { display: flex; flex-wrap: wrap; gap: 8px; width: 100%; }
+  .page-head .actions .btn { flex: 1 1 calc(50% - 8px); justify-content: center; }
+  .page-head .actions .btn.primary, .page-head .actions .btn.success { flex-basis: 100%; }
+  .card-head { flex-wrap: wrap; gap: 8px; }
+  .card-head .actions, .card-head .row { flex-wrap: wrap; }
+  .card-body { padding: 14px; }
+  /* KPI tiles */
+  .grid.kpis, .grid.c3, .grid.c4 { gap: 10px; }
+  .kpi { padding: 12px; gap: 10px; min-width: 0; }
+  .kpi > div { min-width: 0; }
+  .kpi .ico { width: 36px; height: 36px; border-radius: 10px; }
+  .kpi .ico svg { width: 18px; height: 18px; }
+  .kpi .lbl { font-size: 10px; letter-spacing: .04em; }
+  .kpi .val { font-size: 20px; overflow-wrap: anywhere; }
+  .kpi .hint { font-size: 11px; }
+  /* tabs scroll sideways instead of wrapping */
+  .tabs { overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab { flex: none; white-space: nowrap; }
+  /* compact record cards: first line is the title */
+  table.dt.stack tbody tr { margin: 8px; }
+  table.dt.stack tbody td { padding: 7px 12px; font-size: 13.5px; align-items: center; }
+  table.dt.stack tbody td:first-child { background: var(--surface-2); font-weight: 700; border-bottom: 1px solid var(--border); }
+  table.dt.stack tbody td:empty { display: none; }
+  table.dt.stack tbody td::before { font-size: 10px; }
+  /* tables that are not stacked scroll inside their card */
+  .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  /* popups become full-height sheets with the buttons always visible */
+  .overlay { align-items: flex-end; }
+  .modal { width: 100% !important; max-width: none !important; max-height: 94dvh; display: flex; flex-direction: column; border-radius: 18px 18px 0 0; }
+  .modal-body { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 14px; }
+  .modal-foot { flex-wrap: wrap; gap: 8px; padding: 10px 14px calc(10px + env(safe-area-inset-bottom)); position: sticky; bottom: 0; background: var(--surface); }
+  .modal-foot .btn { flex: 1 1 calc(50% - 8px); justify-content: center; }
+  .modal-foot .grow { display: none; }
+  .modal-foot .btn.primary { flex-basis: 100%; order: -1; }
+  .print-preview { padding: 6px; max-height: calc(94dvh - 210px); }
+  .form-grid { grid-template-columns: 1fr !important; }
+  .stepper { flex-wrap: wrap; gap: 6px 10px; }
+  .toolbar .btn { flex: 1 1 auto; }
+}
