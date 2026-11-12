@@ -35,7 +35,13 @@ export function selectBox({ options = [], value = null, placeholder = 'Select...
     document.body.appendChild(pop);
     trigger.classList.add('open');
 
+    const phone = window.innerWidth <= 720;
     const place = () => {
+      if (phone) { // on phones the keyboard covers the lower half: pin the list to the top of the visible area
+        const vh = (window.visualViewport && window.visualViewport.height) || window.innerHeight;
+        pop.style.left = '8px'; pop.style.right = '8px'; pop.style.width = 'auto'; pop.style.top = '8px'; pop.style.bottom = 'auto';
+        pop.style.maxHeight = Math.min(420, vh - 16) + 'px'; return;
+      }
       const below = window.innerHeight - r.bottom - 12; const above = r.top - 12;
       const maxH = 330;
       if (below >= 200 || below >= above) { pop.style.top = r.bottom + 6 + 'px'; pop.style.bottom = 'auto'; pop.style.maxHeight = Math.min(maxH, below) + 'px'; }
@@ -70,12 +76,15 @@ export function selectBox({ options = [], value = null, placeholder = 'Select...
     const api = {
       close() {
         pop.remove(); trigger.classList.remove('open');
-        document.removeEventListener('mousedown', outside, true); window.removeEventListener('resize', api.close); window.removeEventListener('scroll', onScroll, true);
+        document.removeEventListener('mousedown', outside, true); window.removeEventListener('resize', onResize); window.removeEventListener('scroll', onScroll, true); if (window.visualViewport) window.visualViewport.removeEventListener('resize', place);
         if (activePop === api) activePop = null;
       },
     };
     const outside = (e) => { if (!pop.contains(e.target) && !trigger.contains(e.target)) api.close(); };
-    const onScroll = (e) => { if (!pop.contains(e.target)) api.close(); };
+    // phones fire resize/scroll when the on-screen keyboard opens - those must NOT close the list
+    const openedAt = Date.now(); const w0 = window.innerWidth;
+    const onResize = () => { if (window.innerWidth !== w0) api.close(); };
+    const onScroll = (e) => { if (pop.contains(e.target) || phone || Date.now() - openedAt < 500 || document.activeElement === input) return; api.close(); };
     input.addEventListener('input', () => { q = input.value; hi = 0; render(); });
     const keys = (e) => {
       if (e.key === 'ArrowDown') { e.preventDefault(); hi = Math.min(shown.length - 1, hi + 1); hlite(); list.children[hi]?.scrollIntoView({ block: 'nearest' }); }
@@ -86,12 +95,13 @@ export function selectBox({ options = [], value = null, placeholder = 'Select...
     };
     input.addEventListener('keydown', keys); pop.addEventListener('keydown', keys);
     document.addEventListener('mousedown', outside, true);
-    window.addEventListener('resize', api.close); window.addEventListener('scroll', onScroll, true);
+    window.addEventListener('resize', onResize); window.addEventListener('scroll', onScroll, true);
+    if (window.visualViewport) window.visualViewport.addEventListener('resize', place);
     activePop = api;
     render();
     // scroll selected into view
     const selEl = list.querySelector('.sel'); if (selEl) selEl.scrollIntoView({ block: 'center' });
-    if (searchable) setTimeout(() => input.focus(), 0);
+    if (searchable) { input.focus({ preventScroll: true }); setTimeout(() => { if (document.activeElement !== input) input.focus({ preventScroll: true }); }, 60); }
     else { pop.tabIndex = 0; pop.focus(); }
   };
 
