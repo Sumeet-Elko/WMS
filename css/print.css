@@ -1,0 +1,64 @@
+/* ===========================================================
+   WMS - print layouts (A4).  Used on screen preview AND print.
+   =========================================================== */
+@page { size: A4; margin: 10mm; }
+
+.print-doc {
+  font-family: 'Inter', Arial, Helvetica, sans-serif; color: #111; background: #fff; font-size: 11.5px; line-height: 1.45;
+  width: 190mm; margin: 0 auto; padding: 0;
+}
+.print-doc * { box-sizing: border-box; }
+.print-doc .ph { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; border-bottom: 2.5px solid #1f63b8; padding-bottom: 10px; }
+.print-doc .ph img { height: 46px; width: auto; }
+.print-doc .ph .co { font-size: 15px; font-weight: 800; }
+.print-doc .ph .co small { display: block; font-weight: 400; font-size: 10.5px; color: #444; margin-top: 2px; max-width: 95mm; }
+.print-doc .ph .dt { text-align: right; }
+.print-doc .ph .dt h1 { font-size: 20px; letter-spacing: .04em; margin: 0; color: #1f63b8; text-transform: uppercase; }
+.print-doc .ph .dt .no { font-size: 15px; font-weight: 800; margin-top: 2px; }
+.print-doc .ph .dt .st { display: inline-block; margin-top: 4px; border: 1.5px solid #111; padding: 1px 10px; font-weight: 700; text-transform: uppercase; font-size: 10px; letter-spacing: .06em; }
+.print-doc .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+.print-doc .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
+.print-doc .box { border: 1px solid #333; border-radius: 3px; padding: 7px 9px; }
+.print-doc .box h4 { margin: 0 0 4px; font-size: 9.5px; text-transform: uppercase; letter-spacing: .08em; color: #555; }
+.print-doc .box .big { font-weight: 700; font-size: 12.5px; }
+.print-doc table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+.print-doc th { background: #eef2f7; border: 1px solid #333; padding: 5px 6px; font-size: 10px; text-transform: uppercase; letter-spacing: .04em; text-align: left; }
+.print-doc td { border: 1px solid #333; padding: 5px 6px; vertical-align: top; }
+.print-doc td.num, .print-doc th.num { text-align: right; }
+.print-doc tfoot td { font-weight: 700; background: #f7f9fc; }
+.print-doc .write { border: 1px solid #333; border-radius: 3px; margin-top: 10px; }
+.print-doc .write .wl { background: #eef2f7; padding: 4px 8px; font-weight: 700; font-size: 10px; text-transform: uppercase; letter-spacing: .06em; border-bottom: 1px solid #333; }
+.print-doc .write .wb { padding: 6px 8px; min-height: 22mm; white-space: pre-wrap; }
+.print-doc .write .ruled { min-height: 26mm; background-image: repeating-linear-gradient(to bottom, transparent 0, transparent 7.2mm, #b9c2cf 7.2mm, #b9c2cf 7.4mm); }
+.print-doc .sig { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 26px; }
+.print-doc .sig div { border-top: 1px solid #111; padding-top: 4px; text-align: center; font-size: 10px; color: #333; }
+.print-doc .foot { margin-top: 14px; border-top: 1px solid #999; padding-top: 5px; display: flex; justify-content: space-between; font-size: 9.5px; color: #555; }
+.print-doc .blankrow td { height: 8.2mm; }
+.print-doc .note { font-size: 10px; color: #444; margin-top: 6px; }
+.print-doc tr, .print-doc .box, .print-doc .write { page-break-inside: avoid; }
+
+/* centered company header */
+.print-doc .ph2 { text-align: center; padding-bottom: 8px; border-bottom: 2.5px solid #1f63b8; }
+.print-doc .ph2 .lg { height: 58px; width: auto; display: block; margin: 0 auto 4px; }
+.print-doc .ph2 .co { font-size: 17px; font-weight: 800; letter-spacing: .02em; text-transform: uppercase; }
+.print-doc .ph2 .ad { font-size: 10.5px; color: #444; margin-top: 2px; line-height: 1.4; }
+.print-doc .tbar { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 10px; margin-top: 8px; padding: 6px 0; border-bottom: 1px solid #999; }
+.print-doc .tbar .t { font-size: 15px; font-weight: 800; letter-spacing: .06em; color: #1f63b8; text-transform: uppercase; }
+.print-doc .tbar .n { font-size: 15px; font-weight: 800; text-align: center; }
+.print-doc .tbar .s { text-align: right; }
+.print-doc .tbar .s span { display: inline-block; border: 1.5px solid #111; padding: 1px 10px; font-weight: 700; text-transform: uppercase; font-size: 10px; letter-spacing: .06em; }
+.print-doc .grid2, .print-doc .grid3 { align-items: stretch; }
+.print-doc table { table-layout: auto; }
+.print-doc td, .print-doc th { word-break: break-word; }
+
+/* preview wrapper inside the app */
+.print-preview { background: #d5dbe3; padding: 12px; border-radius: 12px; overflow: auto; max-height: calc(100vh - 230px); }
+.print-preview .print-doc { box-shadow: 0 6px 30px rgba(0,0,0,.25); padding: 10mm; background: #fff; min-height: 277mm; width: 210mm; }
+
+@media print {
+  html, body { background: #fff !important; height: auto; }
+  body * { visibility: hidden; }
+  .print-doc, .print-doc * { visibility: visible; }
+  .print-doc { position: absolute; left: 0; top: 0; width: 100%; padding: 0; box-shadow: none; }
+  #toasts, #topbar-progress { display: none !important; }
+}
